@@ -1,0 +1,107 @@
+<div>
+  <form [formGroup]="workForm" (ngSubmit)="createInputs()">
+    <div class="row">
+      <div class="col-xs-10">
+        <div class="form-group">
+          <label for="workname">İş Adını Giriniz</label>
+          <input type="text" [(ngModel)]="text" id="workname" formControlName="workname" class="form-control">
+        </div>
+      </div>
+      <div class="col-xs-10">
+        <button type="submit" class="btn btn-primary">Ekle</button>
+      </div>
+    </div>
+  </form>
+
+ <!-- <table align="center">
+    <tr>
+      <td>
+        <h2>Yapılacaklar Listesi:</h2>
+      </td>
+    </tr>
+    <tr>
+      <div *ngFor="let item of getdoneItems();index as i">
+
+        <td><b>{{i+1}}-</b></td>
+        <td> {{item.workname}}
+
+
+          <input type="checkbox" [(ngModel)]="item.done" (click)="updateItem(item)" id="works">
+          <label class="custom-control-label" for="works">Yapıldı</label></td>
+      </div>
+
+    </tr>
+
+  </table>-->
+</div>
+
+<!--<div>
+  <table align="center">
+    <tr>
+      <h2>Yapılan İşler:</h2>
+    </tr>
+    <tr>
+      <div *ngFor="let item of getundoneItems();index as i">
+        <td> <b>{{i+1}}-</b></td>
+        <td> {{item.workname}}</td>
+
+
+
+
+      </div>
+    </tr>
+  </table>
+</div>
+<div>
+</div>-->
+
+
+
+  <div>
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Yapılacaklar Listesi</h2>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col" style="text-align: center;">Id</th>
+            <th scope="col" style="text-align: center;">İş Adı</th>
+            <th scope="col" style="text-align: center;">Yapıldı</th>
+            <th scope="col" style="text-align: center;">İşlemler</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let item of getdoneItems();index as i">
+          <th scope="row" style="text-align: center;">{{i+1}}</th>
+          <td style="text-align: center;">{{item.workname}}</td>
+          <td style="text-align: center;"> <input type="checkbox" [(ngModel)]="item.done" (click)="updateItem(item)" id="works"></td>
+          <td style="text-align: center;"><button type="button" class="btn btn-danger" (click)="deleteItem(item)">Sil</button>
+            <app-modal-works [context]="context" [node]="item" ></app-modal-works>
+            <app-modal-dates [context]="context" [nodeWork]="item"></app-modal-dates>
+          </td>
+          
+        </tbody>
+        </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Yapılan İşler</h2>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col" style="text-align: center;">Id</th>
+            <th scope="col" style="text-align: center;">İş Adı</th>
+            <th scope="col" style="text-align: center;">İşlemler</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let item of getundoneItems();index as i">
+          <th scope="row" style="text-align: center;">{{i+1}}</th>
+          <td style="text-align: center;">{{item.workname}}</td>
+          <td style="text-align: center;"><button type="button" class="btn btn-danger" (click)="deleteItem(item)">Sil</button></td>
+        </tbody>
+        </table>
+    </div>
+  </div>
+  
+</div>
