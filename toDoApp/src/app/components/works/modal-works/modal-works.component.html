@@ -1,22 +1,41 @@
-<button (click)="open()" class="btn btn-success"  >Güncelle</button>
-<div #modal class="modal " id="largeShoes" tabindex="-1" role="dialog" aria-labelledby="modalLabelLarge" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
+<button (click)="open()" class="btn btn-success">Güncelle</button>
+<div
+  #modal
+  class="modal"
+  id="largeShoes"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="modalLabelLarge"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-sm">
     <div class="modal-content">
-    
-    <div class="modal-header">
-    <h4 class="modal-title" id="modalLabelLarge">Güncelleme işlemi</h4>
-    
-    
-    
+      <div class="modal-header">
+        <h4 class="modal-title" id="modalLabelLarge">Güncelleme işlemi</h4>
+      </div>
+
+      <div class="modal-body">
+        <input
+          type="text"
+          [(ngModel)]="text"
+          id="workname"
+          class="form-control"
+        />
+        <button
+          class="btn btn-primary"
+          (click)="update()"
+          style="margin-top: 10px"
+        >
+          Güncelle
+        </button>
+        <button
+          class="btn btn-danger"
+          (click)="close()"
+          style="margin-top: 10px"
+        >
+          Kapat
+        </button>
+      </div>
     </div>
-    
-    <div class="modal-body">
-        <input type="text" [(ngModel)]="text" id="workname"  class="form-control">
-        <button class="btn btn-primary" (click)="update()" style="margin-top: 10px;">Güncelle</button>
-        <button class="btn btn-danger" (click)="close()" style="margin-top: 10px;"  >Kapat</button>
-    </div>
-    
-    </div>
-    </div>
-    </div>
-   
+  </div>
+</div>

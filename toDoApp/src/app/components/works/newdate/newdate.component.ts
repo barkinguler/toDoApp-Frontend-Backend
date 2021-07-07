@@ -6,20 +6,19 @@ import { ModelServiceService } from 'src/app/Service/model-service.service';
 @Component({
   selector: 'app-newdate',
   templateUrl: './newdate.component.html',
-  styleUrls: ['./newdate.component.css']
+  styleUrls: ['./newdate.component.css'],
 })
 export class NewdateComponent implements OnInit {
   newdate: string;
   dateForm: FormGroup;
-  constructor(private modelService: ModelServiceService) { }
+  constructor(private modelService: ModelServiceService) {}
 
   ngOnInit(): void {
     this.dateForm = new FormGroup({
-      'datename': new FormControl(null, Validators.required)
+      datename: new FormControl(null, Validators.required),
     });
   }
   onAddDate() {
-
     this.modelService.onAddDate({ datename: this.newdate });
 
     this.modelService.newDateValue.next(this.newdate);

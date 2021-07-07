@@ -10,19 +10,23 @@ import { WorksComponent } from './components/works/works.component';
 import { WorkstartComponent } from './components/works/workstart/workstart.component';
 
 const routes: Routes = [
-  {path:'',redirectTo:'/works',pathMatch:'full'},
-  {path:'works',component:WorksComponent,canActivate: [AuthenticationGuard], children:[
-    {path:'',component:WorkstartComponent},
-    {path:'new', component:NewdateComponent},
-    {path:':id',component:WorksListComponent}
-
-  ]},
-  {path: 'admin',component:AdminComponent},
-  { path: 'login', component: AuthComponent }
+  { path: '', redirectTo: '/works', pathMatch: 'full' },
+  {
+    path: 'works',
+    component: WorksComponent,
+    canActivate: [AuthenticationGuard],
+    children: [
+      { path: '', component: WorkstartComponent },
+      { path: 'new', component: NewdateComponent },
+      { path: ':id', component: WorksListComponent },
+    ],
+  },
+  { path: 'admin', component: AdminComponent },
+  { path: 'login', component: AuthComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

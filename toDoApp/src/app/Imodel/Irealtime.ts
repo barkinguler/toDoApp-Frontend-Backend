@@ -1,4 +1,4 @@
-export  interface Irealtime {
-    username:string;
-    workvalue:number;
-    }
+export interface Irealtime {
+  username: string;
+  workvalue: number;
+}

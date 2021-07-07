@@ -7,46 +7,44 @@ import { ModelServiceService } from 'src/app/Service/model-service.service';
   selector: 'app-modal-dates',
   templateUrl: './modal-dates.component.html',
   styleUrls: ['./modal-dates.component.css'],
-  providers: [ModalServiceService]
+  providers: [ModalServiceService],
 })
 export class ModalDatesComponent implements OnInit {
-  @Input() nodeWork:ImodelWork;
+  @Input() nodeWork: ImodelWork;
   @Input() context: any;
-  
-   condition: boolean;
-  @ViewChild('modal')elementRef :ElementRef
-  text:string;
-  
-  constructor(private modalService:  ModalServiceService,private modelService:ModelServiceService) { }
+
+  condition: boolean;
+  @ViewChild('modal') elementRef: ElementRef;
+  text: string;
+
+  constructor(
+    private modalService: ModalServiceService,
+    private modelService: ModelServiceService
+  ) {}
   ngAfterViewInit(): void {
-    
-    this.modalService.setup({context:this.context,elementReferance:this.elementRef})
+    this.modalService.setup({
+      context: this.context,
+      elementReferance: this.elementRef,
+    });
   }
-  
-  open(){
+
+  open() {
     this.modalService.open();
   }
-  close(){
+  close() {
     this.modalService.close();
   }
   ngOnInit(): void {
-   this.condition=true;
+    this.condition = true;
   }
-  update(){
-  
-    this.modelService.updateDateName(this.nodeWork,this.context.node);
+  update() {
+    this.modelService.updateDateName(this.nodeWork, this.context.node);
   }
-  getDates(){
-  
+  getDates() {
     return this.modelService.getDateValue();
   }
-  showWorks(value :ImodelDate,deger :number,event:any){
-    
-   //console.log(event.target);
-    this.nodeWork.datee={id:value.id,datename:value.datename};
-    this.condition=false;
-    
-    
-    }
-
+  showWorks(value: ImodelDate, deger: number, event: any) {
+    this.nodeWork.datee = { id: value.id, datename: value.datename };
+    this.condition = false;
+  }
 }

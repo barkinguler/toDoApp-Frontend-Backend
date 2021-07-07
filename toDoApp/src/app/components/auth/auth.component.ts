@@ -9,30 +9,34 @@ import { ModelServiceService } from 'src/app/Service/model-service.service';
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.css']
+  styleUrls: ['./auth.component.css'],
 })
 export class AuthComponent implements OnInit {
-error :string=null;
-  constructor(private authService: AuthService,private router: Router,private route: ActivatedRoute) { }
+  error: string = null;
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
-  ngOnInit(): void {
-    
-  }
-  onSubmit(form: NgForm){
+  ngOnInit(): void {}
+  onSubmit(form: NgForm) {
     let authObs: Observable<ImodelResponse>;
     const username = form.value.username;
     const password = form.value.password;
-    authObs = this.authService.logIn({username:username,password:password});
+    authObs = this.authService.logIn({
+      username: username,
+      password: password,
+    });
     authObs.subscribe(
-      resData => {
+      (resData) => {
         console.log(resData);
-        
+
         this.router.navigate(['/works']);
       },
-      errorMessage => {
+      (errorMessage) => {
         console.log(errorMessage);
-        this.error=errorMessage;
-        
+        this.error = errorMessage;
       }
     );
 

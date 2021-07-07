@@ -1,17 +1,16 @@
-import { AuthRequestData, ImodelResponse } from "./Iresponse";
+import { AuthRequestData, ImodelResponse } from './Iresponse';
 
-export  interface ImodelWork {
-id?:number;
-workname: string;
-done : boolean;
+export interface ImodelWork {
+  id?: number;
+  workname: string;
+  done: boolean;
 
-datee?:ImodelDate;
+  datee?: ImodelDate;
 }
 
-export  interface ImodelDate{
-    id?: number;
-    datename:string;
-    courses?:Array<ImodelWork>;
-    auth?:AuthRequestData
-    
-    }
+export interface ImodelDate {
+  id?: number;
+  datename: string;
+  courses?: Array<ImodelWork>;
+  auth?: AuthRequestData;
+}

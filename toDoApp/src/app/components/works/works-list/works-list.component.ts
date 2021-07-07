@@ -9,12 +9,16 @@ import { ModelServiceService } from 'src/app/Service/model-service.service';
 @Component({
   selector: 'app-works-list',
   templateUrl: './works-list.component.html',
-  styleUrls: ['./works-list.component.css']
+  styleUrls: ['./works-list.component.css'],
 })
 export class WorksListComponent implements OnInit {
-  
-  context :any;
-  constructor(private modelService: ModelServiceService, private route: ActivatedRoute, private router: Router,private modalService:ModalServiceService) { }
+  context: any;
+  constructor(
+    private modelService: ModelServiceService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private modalService: ModalServiceService
+  ) {}
   subscription: Subscription;
   subscriptiondetail: Subscription;
   text: string;
@@ -26,65 +30,51 @@ export class WorksListComponent implements OnInit {
     this.subscriptiondetail.unsubscribe();
   }
   ngOnInit(): void {
-    this.context=this;
-    this.route.params
-      .subscribe(
-        (params: Params) => {
-          this.id = +params['id'];
+    this.context = this;
+    this.route.params.subscribe((params: Params) => {
+      this.id = +params['id'];
 
-          this.node = this.modelService.getWorks(this.id);
-          this.modelService.getItems(this.node);
-
-        }
-      );
-
+      this.node = this.modelService.getWorks(this.id);
+      this.modelService.getItems(this.node);
+    });
 
     this.subscriptiondetail = this.modelService.dateDetail.subscribe(
       (value) => {
-
         this.modelService.getItems(value);
-
       }
-    )
+    );
     this.workForm = new FormGroup({
-      'workname': new FormControl(null, Validators.required)
+      workname: new FormControl(null, Validators.required),
     });
-    
   }
   createInputs() {
-
-
-    this.modelService.addItem({ workname: this.text, done: false, datee: this.node });
+    this.modelService.addItem({
+      workname: this.text,
+      done: false,
+      datee: this.node,
+    });
     this.workForm.reset();
   }
   getundoneItems() {
-
     return this.modelService.getItemsUndone();
   }
   updateItem(item: ImodelWork) {
-
     this.modelService.updateItem(item);
-
   }
   getdoneItems() {
-
     return this.modelService.getItemsDone();
   }
-  deleteItem(value: ImodelWork){
-    
-   // this.modelService.getDates(this.id);
-   this.modelService.deleteWork(value, this.modelService.getWorks(this.id));
+  deleteItem(value: ImodelWork) {
+    this.modelService.deleteWork(value, this.modelService.getWorks(this.id));
   }
-  updateName(node: any,value:string){
-    
-    this.context=this;
-    node.workname=value;
-this.modelService.updateName(node);
+  updateName(node: any, value: string) {
+    this.context = this;
+    node.workname = value;
+    this.modelService.updateName(node);
   }
-  getItemManupelated(value:ImodelWork){
-    const model :ImodelDate ={id:0,datename:null};
-    value.datee=model;
+  getItemManupelated(value: ImodelWork) {
+    const model: ImodelDate = { id: 0, datename: null };
+    value.datee = model;
     return value;
   }
-
 }
