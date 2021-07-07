@@ -37,20 +37,20 @@ public class WorkService {
     private TodoAppRepository todoAppRepository;
     @Autowired
     private com.example.toDoappServer.Repository.DateRepository DateRepository;
-     @Autowired
+    @Autowired
     private AuthRepository authRepository;
 
 
     public List<ModelDate> getEntity(int id) {
-       return authRepository.findById(id).get().getDates();
+        return authRepository.findById(id).get().getDates();
 
 
     }
 
     public void saveEntity(ModelDate entity) {
-ModelAuth modelAuth=authRepository.findById(entity.getAuth().getId()).get();
+        ModelAuth modelAuth = authRepository.findById(entity.getAuth().getId()).get();
 
-entity.setAuth(modelAuth);
+        entity.setAuth(modelAuth);
         DateRepository.save(entity);
     }
 
@@ -80,9 +80,9 @@ entity.setAuth(modelAuth);
 
     }
 
-    public void deleteDate(Integer id){
+    public void deleteDate(Integer id) {
 
-       DateRepository.deleteById(id);
+        DateRepository.deleteById(id);
 
     }
 
@@ -100,40 +100,42 @@ entity.setAuth(modelAuth);
 
     }
 
-    public void updateNameDate(ModelEntity entity){
-    ModelEntity modelEntity=todoAppRepository.findById(entity.getId()).get();
-    ModelDate modelDate= DateRepository.findById(entity.getDatee().getId()).get();
+    public void updateNameDate(ModelEntity entity) {
+        ModelEntity modelEntity = todoAppRepository.findById(entity.getId()).get();
+        ModelDate modelDate = DateRepository.findById(entity.getDatee().getId()).get();
 
-    modelEntity.setDatee(modelDate);
-    todoAppRepository.save(modelEntity);
+        modelEntity.setDatee(modelDate);
+        todoAppRepository.save(modelEntity);
 
     }
 
-    public List<ModelAuth> getAuth(){
+    public List<ModelAuth> getAuth() {
 
         return authRepository.findWithQuery();
     }
-    public void updateUsername(int id){
-         ModelAuth modelAuth=authRepository.findById(id).get();
 
-         ModelDate modelDate=modelAuth.getDates().get(0);
-         modelAuth.setUsername("yyy");
+    public void updateUsername(int id) {
+        ModelAuth modelAuth = authRepository.findById(id).get();
+
+        ModelDate modelDate = modelAuth.getDates().get(0);
+        modelAuth.setUsername("yyy");
 
     }
-   public TokenInformation login(ModelAuth modelAuth) throws Exception {
-       TokenInformation tokenInformation=new TokenInformation();
-   if(modelAuth.getPassword().equals(authRepository.findPassword(modelAuth.getUsername()).getPassword())){
-    String token=getJWTToken(modelAuth.getUsername());
-      tokenInformation.setId(authRepository.findPassword(modelAuth.getUsername()).getId());
-       tokenInformation.setToken(token);
-       tokenInformation.setUsername(modelAuth.getUsername());
-       tokenInformation.setPassword(modelAuth.getPassword());
-       tokenInformation.setHumanReadableMessage("Success Login");
-       return tokenInformation;
-   }
-   else
-       throw new Exception();
-   }
+
+    public TokenInformation login(ModelAuth modelAuth) throws Exception {
+        TokenInformation tokenInformation = new TokenInformation();
+        if (modelAuth.getPassword().equals(authRepository.findPassword(modelAuth.getUsername()).getPassword())) {
+            String token = getJWTToken(modelAuth.getUsername());
+            tokenInformation.setId(authRepository.findPassword(modelAuth.getUsername()).getId());
+            tokenInformation.setToken(token);
+            tokenInformation.setUsername(modelAuth.getUsername());
+            tokenInformation.setPassword(modelAuth.getPassword());
+            tokenInformation.setHumanReadableMessage("Success Login");
+            return tokenInformation;
+        } else
+            throw new Exception();
+    }
+
     private String getJWTToken(String username) {
         String secretKey = "mySecretKey";
         List<GrantedAuthority> grantedAuthorities = AuthorityUtils
@@ -155,51 +157,53 @@ entity.setAuth(modelAuth);
         return "Bearer " + token;
     }
 
-public void signUp(ModelAuth modelAuth) throws Exception {
+    public void signUp(ModelAuth modelAuth) throws Exception {
 
-        if(authRepository.findPassword(modelAuth.getUsername())==null) {
+        if (authRepository.findPassword(modelAuth.getUsername()) == null) {
             authRepository.save(modelAuth);
             emitAllSessions();
-        }
-        else
+        } else
             throw new Exception("Aynı isimde giriş");
-}
-public void updatePassword(ModelAuth modelAuth){
-        ModelAuth modelAuth1=authRepository.findPassword(modelAuth.getUsername());
+    }
+
+    public void updatePassword(ModelAuth modelAuth) {
+        ModelAuth modelAuth1 = authRepository.findPassword(modelAuth.getUsername());
         modelAuth1.setPassword(modelAuth.getPassword());
         authRepository.save(modelAuth1);
-}
-public String emitForSingleSession() throws IOException {
+    }
+
+    public String emitForSingleSession() throws IOException {
 
 
-    int tmp=0;
-    List<ModelAuth> modelAuths=authRepository.findAll();
-    List<ModelAdmin> modelAdmins=new ArrayList<>();
-    for(int i=0;i<modelAuths.size();i++){
+        int tmp = 0;
+        List<ModelAuth> modelAuths = authRepository.findAll();
+        List<ModelAdmin> modelAdmins = new ArrayList<>();
+        for (int i = 0; i < modelAuths.size(); i++) {
 
-        for(int k=0;k<modelAuths.get(i).getDates().size();k++){
-           for(int j=0; j<modelAuths.get(i).getDates().get(k).getCourses().size();j++){
-               tmp++;
-           }
+            for (int k = 0; k < modelAuths.get(i).getDates().size(); k++) {
+                for (int j = 0; j < modelAuths.get(i).getDates().get(k).getCourses().size(); j++) {
+                    tmp++;
+                }
+            }
+            ModelAdmin modelAdmin = new ModelAdmin();
+            modelAdmin.setUsername(modelAuths.get(i).getUsername());
+            modelAdmin.setWorkvalue(tmp);
+            modelAdmins.add(modelAdmin);
+            tmp = 0;
         }
-        ModelAdmin modelAdmin=new ModelAdmin();
-        modelAdmin.setUsername(modelAuths.get(i).getUsername());
-        modelAdmin.setWorkvalue(tmp);
-        modelAdmins.add(modelAdmin);
-        tmp=0;
+
+
+        return (new Gson().toJson(modelAdmins));
+
     }
 
+    public void emitAllSessions() throws IOException {
 
-    return(new Gson().toJson(modelAdmins));
+        for (WebSocketSession webSocketSession : SocketHandler.sessions) {
 
-}
-public void emitAllSessions() throws IOException {
+            webSocketSession.sendMessage(new TextMessage(emitForSingleSession()));
+        }
 
-    for(WebSocketSession webSocketSession : SocketHandler.sessions) {
 
-         webSocketSession.sendMessage(new TextMessage(emitForSingleSession()));
     }
-
-
-}
 }

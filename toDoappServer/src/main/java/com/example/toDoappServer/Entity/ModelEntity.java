@@ -29,7 +29,6 @@ public class ModelEntity implements Serializable {
 
     @JoinColumn(name = "datee1", referencedColumnName = "datename")
     @JsonBackReference
-    //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private ModelDate datee;
 
 
@@ -57,7 +56,6 @@ public class ModelEntity implements Serializable {
         System.out.print(done);
         this.done = done;
     }
-
 
     public ModelDate getDatee() {
 

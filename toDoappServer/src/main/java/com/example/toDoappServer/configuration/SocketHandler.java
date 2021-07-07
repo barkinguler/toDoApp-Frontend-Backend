@@ -28,20 +28,21 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class SocketHandler extends TextWebSocketHandler {
     @Autowired
     private TodoAppRepository todoAppRepository;
-@Autowired
+    @Autowired
     private WorkService workService;
-@Autowired
-private AuthRepository authRepository;
- public static  List<WebSocketSession> sessions = new CopyOnWriteArrayList<>();
+    @Autowired
+    private AuthRepository authRepository;
+    public static List<WebSocketSession> sessions = new CopyOnWriteArrayList<>();
+
     @Override
     public void handleTransportError(WebSocketSession session, Throwable throwable) throws Exception {
-        System.out.print( "throwable.getMessage()");
+        System.out.print("throwable.getMessage()");
 
     }
+
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message)
             throws InterruptedException, IOException {
-
 
 
     }
@@ -52,13 +53,12 @@ private AuthRepository authRepository;
         sessions.add(session);
 
 
-
-
     }
+
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        for(int i=0;i<sessions.size();i++){
-            if(sessions.get(i).equals(session))
+        for (int i = 0; i < sessions.size(); i++) {
+            if (sessions.get(i).equals(session))
                 sessions.remove(i);
 
 

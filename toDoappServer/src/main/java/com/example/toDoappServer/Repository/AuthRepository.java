@@ -20,6 +20,7 @@ public interface AuthRepository extends JpaRepository<ModelAuth, Integer> {
             "SELECT M FROM ModelAuth M WHERE M.username=?1"
     )
     public ModelAuth findPassword(String username);
+
     @Query(
             "SELECT A.username,COUNT(A.username)as worksvalue FROM ModelEntity E,ModelDate D,ModelAuth A " +
                     "WHERE A.username=D.auth AND E.datee=D.datename " +

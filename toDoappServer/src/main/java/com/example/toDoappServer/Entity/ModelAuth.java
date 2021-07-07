@@ -1,4 +1,5 @@
 package com.example.toDoappServer.Entity;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.dom4j.rule.Mode;
@@ -11,9 +12,10 @@ import java.io.Serializable;
 
 import java.util.*;
 import javax.persistence.*;
+
 @Entity
 @Table(name = "authtodoapp")
-public class ModelAuth implements Serializable{
+public class ModelAuth implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue
@@ -25,11 +27,10 @@ public class ModelAuth implements Serializable{
     @Column(name = "User_name")
     private String username;
 
-    @OneToMany( mappedBy = "auth",fetch = FetchType.LAZY,cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "auth", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 
 
     private List<ModelDate> Dates = new ArrayList<>();
-
 
 
     public int getId() {
@@ -59,8 +60,6 @@ public class ModelAuth implements Serializable{
     public List<ModelDate> getDates() {
         return Dates;
     }
-
-
 
     public void setDates(List<ModelDate> dates) {
         Dates = dates;

@@ -27,30 +27,26 @@ public class TodoAppRestController {
     @Autowired
     private WorkService workService;
 
+    @CrossOrigin(origins = "*")
+    @RequestMapping(method = RequestMethod.GET, path = "/get")
+    public List<ModelDate> getTodoApp(@RequestParam Integer id) {
 
-   @CrossOrigin(origins = "*")
-   @RequestMapping(method = RequestMethod.GET, path = "/get")
-   public List<ModelDate> getTodoApp(@RequestParam Integer id) {
+        return workService.getEntity(id);
+    }
 
-       return workService.getEntity(id);
-   }
+    @PostMapping(value = "/post",
+            consumes = "application/json", produces = "application/json")
+    public void createWork(@RequestBody ModelDate entity) throws Exception {
 
-
-
-  @PostMapping(value = "/post",
-          consumes = "application/json", produces = "application/json")
-  public void createWork(@RequestBody ModelDate entity) throws Exception {
-
-      workService.saveEntity(entity);
+        workService.saveEntity(entity);
 
 
-  }
-
+    }
 
     @PutMapping(value = "/update",
             consumes = "application/json", produces = "application/json")
     public void updateWork(@RequestBody ModelEntity entity) throws IllegalAccessException, IOException {
-System.out.print("çalıştı");
+        System.out.print("çalıştı");
         workService.updateEntity(entity);
 
     }
@@ -66,11 +62,10 @@ System.out.print("çalıştı");
     @PutMapping(value = "/updateDateName",
             consumes = "application/json", produces = "application/json")
     public void updateDatename(@RequestBody ModelEntity entity) throws IllegalAccessException {
-        
+
         workService.updateNameDate(entity);
 
     }
-
 
     @PostMapping(value = "/post1",
             consumes = "application/json", produces = "application/json")
@@ -79,7 +74,6 @@ System.out.print("çalıştı");
         workService.saveEntity1(entity);
 
     }
-
 
     @GetMapping("/get1")
     public List<ModelEntity> getTodoApp1(@RequestParam(required = false) Integer id) throws IllegalAccessException {
@@ -91,10 +85,9 @@ System.out.print("çalıştı");
     @DeleteMapping("/delete")
     public void deleteTodoApp(@RequestParam(required = false) Integer id) throws IllegalAccessException {
 
-         workService.deleteDate(id);
+        workService.deleteDate(id);
 
     }
-
 
     @DeleteMapping("/deletework")
     public void deleteWork(@RequestParam(required = false) Integer id) throws IllegalAccessException, IOException {
@@ -102,28 +95,30 @@ System.out.print("çalıştı");
         workService.deleteWork(id);
 
     }
+
     @GetMapping("/getauth")
-    public List<ModelAuth> getAuth(){
-       return workService.getAuth();
+    public List<ModelAuth> getAuth() {
+        return workService.getAuth();
     }
 
-
     @CrossOrigin
-    @RequestMapping(method = RequestMethod.POST,value = "/login",
+    @RequestMapping(method = RequestMethod.POST, value = "/login",
             consumes = "application/json", produces = "application/json")
     public TokenInformation postUser1(@RequestBody ModelAuth modelAuth) throws Exception {
 
-       return workService.login(modelAuth);
+        return workService.login(modelAuth);
     }
+
     @CrossOrigin
-    @RequestMapping(method = RequestMethod.POST,value = "/signup",
+    @RequestMapping(method = RequestMethod.POST, value = "/signup",
             consumes = "application/json", produces = "application/json")
     public void signUp(@RequestBody ModelAuth modelAuth) throws Exception {
 
-         workService.signUp(modelAuth);
+        workService.signUp(modelAuth);
     }
+
     @CrossOrigin
-    @RequestMapping(method = RequestMethod.POST,value = "/updatePassword",
+    @RequestMapping(method = RequestMethod.POST, value = "/updatePassword",
             consumes = "application/json", produces = "application/json")
     public void updatePassword(@RequestBody ModelAuth modelAuth) throws Exception {
 
@@ -131,9 +126,9 @@ System.out.print("çalıştı");
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/getIstatistic"
-            ,consumes = "application/json", produces = "application/json")
+            , consumes = "application/json", produces = "application/json")
     public Object getIstatistic() throws IOException {
 
-         return workService.emitForSingleSession();
+        return workService.emitForSingleSession();
     }
 }

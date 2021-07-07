@@ -22,7 +22,7 @@ import java.util.Map;
 @Configuration
 @EnableWebSocket
 
-public class WebSocketConfig implements WebSocketConfigurer  {
+public class WebSocketConfig implements WebSocketConfigurer {
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 
@@ -34,7 +34,7 @@ public class WebSocketConfig implements WebSocketConfigurer  {
     public boolean beforeHandshake(ServerHttpRequest request,
                                    ServerHttpResponse response, WebSocketHandler wsHandler,
                                    Map<String, Object> attributes) throws Exception {
-       return true;
+        return true;
     }
 
 

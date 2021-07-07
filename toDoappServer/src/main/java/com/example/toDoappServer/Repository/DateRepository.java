@@ -21,5 +21,4 @@ public interface DateRepository extends JpaRepository<ModelDate, Integer> {
     List<ModelEntity> findAllData(int id);
 
 
-
 }

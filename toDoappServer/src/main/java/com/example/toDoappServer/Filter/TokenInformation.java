@@ -2,11 +2,10 @@ package com.example.toDoappServer.Filter;
 
 public class TokenInformation {
     private int id;
-  private   String username;
-   private String password;
-   private String token;
+    private String username;
+    private String password;
+    private String token;
     private String HumanReadableMessage;
-
 
 
     public int getId() {

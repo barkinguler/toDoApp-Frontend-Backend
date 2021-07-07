@@ -33,7 +33,7 @@ public class ModelDate implements Serializable {
     @JsonBackReference
     private ModelAuth auth;
 
-    @OneToMany(mappedBy = "datee", fetch = FetchType.LAZY,cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "datee", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 
     @JsonManagedReference
 
@@ -50,7 +50,6 @@ public class ModelDate implements Serializable {
     public int getId() {
         return id;
     }
-
 
     public String getDatename() {
         return datename;

@@ -25,8 +25,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
 
-web.ignoring().antMatchers("/name");
+        web.ignoring().antMatchers("/name");
     }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -34,24 +35,24 @@ web.ignoring().antMatchers("/name");
                 .addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
-                .antMatchers(HttpMethod.GET,"/getIstatistic").permitAll()
-        .antMatchers(HttpMethod.POST,"/signup").permitAll()
+                .antMatchers(HttpMethod.GET, "/getIstatistic").permitAll()
+                .antMatchers(HttpMethod.POST, "/signup").permitAll()
                 .anyRequest().authenticated();
 
 
     }
 
-   @Bean
-   public FilterRegistrationBean corsFilter() {
-       UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-       CorsConfiguration config = new CorsConfiguration();
-       config.setAllowCredentials(true);
-       config.addAllowedOrigin("*");
-       config.setAllowedMethods(Arrays.asList("POST", "OPTIONS", "GET", "DELETE", "PUT"));
-       config.setAllowedHeaders(Arrays.asList("X-Requested-With", "Origin", "Content-Type", "Accept", "Authorization"));
-       source.registerCorsConfiguration("/**", config);
-       FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
-       bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
-       return bean;
-   }
+    @Bean
+    public FilterRegistrationBean corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.addAllowedOrigin("*");
+        config.setAllowedMethods(Arrays.asList("POST", "OPTIONS", "GET", "DELETE", "PUT"));
+        config.setAllowedHeaders(Arrays.asList("X-Requested-With", "Origin", "Content-Type", "Accept", "Authorization"));
+        source.registerCorsConfiguration("/**", config);
+        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+        bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        return bean;
+    }
 }
