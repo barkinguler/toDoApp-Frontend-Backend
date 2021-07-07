@@ -4,15 +4,15 @@ import {
   HttpHeaders,
   HttpParams,
 } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { ImodelDate, ImodelWork } from '../Imodel/Imodel';
-import { map, catchError } from 'rxjs/operators';
-import { Observable, Subject, throwError } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {ImodelDate, ImodelWork} from '../Imodel/Imodel';
+import {map, catchError} from 'rxjs/operators';
+import {Observable, Subject, throwError} from 'rxjs';
 
-import { ValueConverter } from '@angular/compiler/src/render3/view/template';
-import { AuthRequestData } from '../Imodel/Iresponse';
-import { ipaddress } from '../components/shared/IpAdress';
-import { Irealtime } from '../Imodel/Irealtime';
+import {ValueConverter} from '@angular/compiler/src/render3/view/template';
+import {AuthRequestData} from '../Imodel/Iresponse';
+import {ipaddress} from '../components/shared/IpAdress';
+import {Irealtime} from '../Imodel/Irealtime';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +24,9 @@ export class ModelServiceService {
   private IstatisticArray = [];
   dateDetail = new Subject<ImodelDate>();
   newDateValue = new Subject<string>();
-  constructor(private http: HttpClient) {}
+
+  constructor(private http: HttpClient) {
+  }
 
   onAddDate(event: ImodelDate) {
     event.auth = {
@@ -47,13 +49,13 @@ export class ModelServiceService {
       localStorage.getItem('token')
     );
     this.http
-      .get(ipaddress.value + '/get', { params: params })
+      .get(ipaddress.value + '/get', {params: params})
       .pipe(
         map((responseData) => {
           const postArray = [];
           for (const key in responseData) {
             if (responseData.hasOwnProperty(key)) {
-              postArray.push({ ...responseData[key] });
+              postArray.push({...responseData[key]});
             }
           }
 
@@ -68,17 +70,18 @@ export class ModelServiceService {
         this.dates = posts;
       });
   }
+
   getItems(value: ImodelDate) {
     const params = new HttpParams().append('id', value.id.toString());
 
     this.http
-      .get(ipaddress.value + '/get1', { params: params })
+      .get(ipaddress.value + '/get1', {params: params})
       .pipe(
         map((responseData) => {
           const postArray = [];
           for (const key in responseData) {
             if (responseData.hasOwnProperty(key)) {
-              postArray.push({ ...responseData[key] });
+              postArray.push({...responseData[key]});
             }
           }
           return postArray;
@@ -88,15 +91,19 @@ export class ModelServiceService {
         this.items = posts;
       });
   }
+
   getDateValue() {
     return this.dates;
   }
+
   getItemsDone() {
     return this.items.filter((item) => !item.done);
   }
+
   getItemsUndone() {
     return this.items.filter((item) => item.done);
   }
+
   addItem(event: ImodelWork) {
     this.http
       .post(ipaddress.value + '/post1', event)
@@ -104,6 +111,7 @@ export class ModelServiceService {
         this.getItems(event.datee);
       });
   }
+
   updateItem(event: ImodelWork) {
     console.log(event);
     this.http
@@ -112,6 +120,7 @@ export class ModelServiceService {
         console.log(responseData);
       });
   }
+
   getWorks(id: number) {
     return this.dates[id];
   }
@@ -120,20 +129,22 @@ export class ModelServiceService {
     const params = new HttpParams().append('id', id.toString());
 
     this.http
-      .delete(ipaddress.value + '/delete', { params: params })
+      .delete(ipaddress.value + '/delete', {params: params})
       .subscribe((responseData) => {
         this.getDates();
       });
   }
+
   deleteWork(value: ImodelWork, value1: ImodelDate) {
     const params = new HttpParams().append('id', value.id.toString());
 
     this.http
-      .delete(ipaddress.value + '/deletework', { params: params })
+      .delete(ipaddress.value + '/deletework', {params: params})
       .subscribe((responseData) => {
         this.getItems(value1);
       });
   }
+
   updateName(event: any) {
     this.http
       .put(ipaddress.value + '/updateName', event)
@@ -141,6 +152,7 @@ export class ModelServiceService {
         console.log(responseData);
       });
   }
+
   updateDateName(event: ImodelWork, valuePreDate: ImodelDate) {
     this.http
       .put(ipaddress.value + '/updateDateName', event)
@@ -148,16 +160,20 @@ export class ModelServiceService {
         this.getItems(valuePreDate);
       });
   }
+
   signUp(value: AuthRequestData) {
     ModelServiceService.requestConditionforInterceptor = false;
     return this.http.post(ipaddress.value + '/signup', value);
   }
+
   updatePassword(value: AuthRequestData) {
     return this.http.post(ipaddress.value + '/updatePassword', value);
   }
+
   getIstatisticValue() {
     return this.IstatisticArray;
   }
+
   getIstatistic() {
     ModelServiceService.requestConditionforInterceptor = false;
     return this.http.get(ipaddress.value + '/getIstatistic').pipe(
@@ -165,7 +181,7 @@ export class ModelServiceService {
         const postArray = [];
         for (const key in responseData) {
           if (responseData.hasOwnProperty(key)) {
-            postArray.push({ ...responseData[key] });
+            postArray.push({...responseData[key]});
           }
         }
 

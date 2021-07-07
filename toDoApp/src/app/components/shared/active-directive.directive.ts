@@ -13,9 +13,11 @@ import {
 export class ActiveDirectiveDirective {
   static tmpItem: any = null;
   private renderer: Renderer2;
+
   constructor(private rendererFactory: RendererFactory2) {
     this.renderer = rendererFactory.createRenderer(null, null);
   }
+
   @HostListener('click', ['$event'])
   public onClick(event: MouseEvent) {
     if (ActiveDirectiveDirective.tmpItem === null) {

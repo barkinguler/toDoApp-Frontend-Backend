@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {
   HttpInterceptor,
   HttpRequest,
@@ -6,12 +6,13 @@ import {
   HttpParams,
   HttpHeaders,
 } from '@angular/common/http';
-import { take, exhaustMap } from 'rxjs/operators';
-import { ModelServiceService } from 'src/app/Service/model-service.service';
+import {take, exhaustMap} from 'rxjs/operators';
+import {ModelServiceService} from 'src/app/Service/model-service.service';
 
 @Injectable()
 export class AuthInterceptorService implements HttpInterceptor {
-  constructor() {}
+  constructor() {
+  }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     const authReq = req.clone({

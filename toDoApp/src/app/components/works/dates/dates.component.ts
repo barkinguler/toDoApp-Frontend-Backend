@@ -1,9 +1,9 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { ImodelDate } from 'src/app/Imodel/Imodel';
-import { ModalServiceService } from 'src/app/Service/modal-service.service';
-import { ModelServiceService } from 'src/app/Service/model-service.service';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription} from 'rxjs';
+import {ImodelDate} from 'src/app/Imodel/Imodel';
+import {ModalServiceService} from 'src/app/Service/modal-service.service';
+import {ModelServiceService} from 'src/app/Service/model-service.service';
 
 @Component({
   selector: 'app-dates',
@@ -17,12 +17,15 @@ export class DatesComponent implements OnInit, OnDestroy {
   id: number;
   item: any;
   condition: boolean = false;
+
   constructor(
     private modelService: ModelServiceService,
     private router: Router,
     private route: ActivatedRoute,
     private modalService: ModalServiceService
-  ) {}
+  ) {
+  }
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
@@ -35,9 +38,11 @@ export class DatesComponent implements OnInit, OnDestroy {
       this.modelService.getDates();
     });
   }
+
   onNewDateSelected() {
-    this.router.navigate(['new'], { relativeTo: this.route });
+    this.router.navigate(['new'], {relativeTo: this.route});
   }
+
   getDates() {
     return this.modelService.getDateValue();
   }

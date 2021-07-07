@@ -1,17 +1,20 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
-import { ipaddress } from '../components/shared/IpAdress';
-import { AuthRequestData, ImodelResponse } from '../Imodel/Iresponse';
-import { ModelServiceService } from './model-service.service';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
+import {catchError, tap} from 'rxjs/operators';
+import {ipaddress} from '../components/shared/IpAdress';
+import {AuthRequestData, ImodelResponse} from '../Imodel/Iresponse';
+import {ModelServiceService} from './model-service.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   user = new BehaviorSubject<boolean>(false);
-  constructor(private http: HttpClient) {}
+
+  constructor(private http: HttpClient) {
+  }
+
   logIn(value: AuthRequestData) {
     ModelServiceService.requestConditionforInterceptor = false;
     return this.http

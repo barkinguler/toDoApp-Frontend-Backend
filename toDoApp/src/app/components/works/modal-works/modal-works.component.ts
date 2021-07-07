@@ -7,17 +7,18 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { WorksListComponent } from '../works-list/works-list.component';
+import {WorksListComponent} from '../works-list/works-list.component';
 import {
   ModalDismissReasons,
   NgbActiveModal,
   NgbModal,
 } from '@ng-bootstrap/ng-bootstrap';
-import { ModalServiceService } from 'src/app/Service/modal-service.service';
-import { ModelServiceService } from 'src/app/Service/model-service.service';
-import { ImodelWork } from 'src/app/Imodel/Imodel';
-import { DatesComponent } from '../dates/dates.component';
-import { Subscription } from 'rxjs';
+import {ModalServiceService} from 'src/app/Service/modal-service.service';
+import {ModelServiceService} from 'src/app/Service/model-service.service';
+import {ImodelWork} from 'src/app/Imodel/Imodel';
+import {DatesComponent} from '../dates/dates.component';
+import {Subscription} from 'rxjs';
+
 @Component({
   selector: 'app-modal-works',
   templateUrl: './modal-works.component.html',
@@ -31,7 +32,9 @@ export class ModalWorksComponent implements OnInit, AfterViewInit {
   @ViewChild('modal') elementRef: ElementRef;
   text: string;
   subscriptionContex: Subscription;
-  constructor(public modalService: ModalServiceService) {}
+
+  constructor(public modalService: ModalServiceService) {
+  }
 
   ngAfterViewInit(): void {
     this.modalService.setup({
@@ -43,10 +46,14 @@ export class ModalWorksComponent implements OnInit, AfterViewInit {
   open() {
     this.modalService.open();
   }
+
   close() {
     this.modalService.close();
   }
-  ngOnInit(): void {}
+
+  ngOnInit(): void {
+  }
+
   update() {
     this.context.updateName(this.node, this.text);
   }

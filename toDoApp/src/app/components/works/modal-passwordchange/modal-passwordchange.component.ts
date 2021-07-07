@@ -1,7 +1,7 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { ModalServiceService } from 'src/app/Service/modal-service.service';
-import { ModelServiceService } from 'src/app/Service/model-service.service';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {NgForm} from '@angular/forms';
+import {ModalServiceService} from 'src/app/Service/modal-service.service';
+import {ModelServiceService} from 'src/app/Service/model-service.service';
 
 @Component({
   selector: 'app-modal-passwordchange',
@@ -17,10 +17,13 @@ export class ModalPasswordchangeComponent implements OnInit {
   password: string;
   context: any;
   successStatus: boolean = false;
+
   constructor(
     public modalService: ModalServiceService,
     public modelService: ModelServiceService
-  ) {}
+  ) {
+  }
+
   ngAfterViewInit(): void {
     this.modalService.setup({
       context: this.context,
@@ -33,9 +36,11 @@ export class ModalPasswordchangeComponent implements OnInit {
     this.successStatus = false;
     this.modalService.open();
   }
+
   close() {
     this.modalService.close();
   }
+
   ngOnInit(): void {
     this.context = this;
   }

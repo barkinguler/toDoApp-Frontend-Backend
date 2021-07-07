@@ -1,10 +1,10 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { ImodelResponse } from 'src/app/Imodel/Iresponse';
-import { ModalServiceService } from 'src/app/Service/modal-service.service';
-import { ModelServiceService } from 'src/app/Service/model-service.service';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {NgForm} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {catchError} from 'rxjs/operators';
+import {ImodelResponse} from 'src/app/Imodel/Iresponse';
+import {ModalServiceService} from 'src/app/Service/modal-service.service';
+import {ModelServiceService} from 'src/app/Service/model-service.service';
 
 @Component({
   selector: 'app-modal-signup',
@@ -20,10 +20,13 @@ export class ModalSignupComponent implements OnInit {
   password: string;
   context: any;
   successStatus: boolean = false;
+
   constructor(
     public modalService: ModalServiceService,
     public modelService: ModelServiceService
-  ) {}
+  ) {
+  }
+
   ngAfterViewInit(): void {
     this.modalService.setup({
       context: this.context,
@@ -36,9 +39,11 @@ export class ModalSignupComponent implements OnInit {
     this.successStatus = false;
     this.modalService.open();
   }
+
   close() {
     this.modalService.close();
   }
+
   ngOnInit(): void {
     this.context = this;
   }
@@ -47,7 +52,7 @@ export class ModalSignupComponent implements OnInit {
     const username = form.value.username;
     const password = form.value.password;
     this.modelService
-      .signUp({ username: username, password: password })
+      .signUp({username: username, password: password})
       .subscribe(
         (resData) => {
           this.successStatus = true;

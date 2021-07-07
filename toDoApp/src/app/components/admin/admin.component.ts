@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import { webSocket } from 'rxjs/webSocket';
-import { Irealtime } from 'src/app/Imodel/Irealtime';
-import { ModelServiceService } from 'src/app/Service/model-service.service';
+import {webSocket} from 'rxjs/webSocket';
+import {Irealtime} from 'src/app/Imodel/Irealtime';
+import {ModelServiceService} from 'src/app/Service/model-service.service';
 
 @Component({
   selector: 'app-admin',
@@ -19,7 +19,7 @@ export class AdminComponent implements OnInit {
     this.chartLabel.push('Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange');
 
     this.barChartData = [
-      { data: [this.value, 22, 32, 42, 52, 62, 72], label: 'Value 1' },
+      {data: [this.value, 22, 32, 42, 52, 62, 72], label: 'Value 1'},
     ];
   }
 
@@ -81,7 +81,8 @@ export class AdminComponent implements OnInit {
     },
   };
 
-  constructor(private modelservice: ModelServiceService) {}
+  constructor(private modelservice: ModelServiceService) {
+  }
 
   ngOnInit(): void {
     this.chartFilled();
@@ -96,7 +97,7 @@ export class AdminComponent implements OnInit {
       }
 
       this.chartLabel = tmpchart;
-      this.barChartData = [{ data: tmpbar, label: 'İş Hacmi' }];
+      this.barChartData = [{data: tmpbar, label: 'İş Hacmi'}];
     });
     console.log(this.modelservice.getIstatisticValue().length);
     console.log(Object.keys(this.modelservice.getIstatisticValue()).length);
@@ -117,10 +118,11 @@ export class AdminComponent implements OnInit {
         }
 
         this.chartLabel = tmpchart;
-        this.barChartData = [{ data: tmpbar, label: 'İş Hacmi' }];
+        this.barChartData = [{data: tmpbar, label: 'İş Hacmi'}];
       },
     });
-    WebSocketSubject.subscribe((data) => {});
+    WebSocketSubject.subscribe((data) => {
+    });
   }
 
   initView(tmp: Array<any>) {
@@ -133,6 +135,6 @@ export class AdminComponent implements OnInit {
     }
 
     this.chartLabel = tmpchart;
-    this.barChartData = [{ data: tmpbar, label: 'İş Hacmi' }];
+    this.barChartData = [{data: tmpbar, label: 'İş Hacmi'}];
   }
 }

@@ -1,4 +1,4 @@
-import { ActiveDirectiveDirective } from './active-directive.directive';
+import {ActiveDirectiveDirective} from './active-directive.directive';
 
 describe('ActiveDirectiveDirective', () => {
   it('should create an instance', () => {

@@ -26,41 +26,41 @@
       <h2>Yapılacaklar Listesi</h2>
       <table class="table table-bordered">
         <thead>
-          <tr>
-            <th scope="col" style="text-align: center">Id</th>
-            <th scope="col" style="text-align: center">İş Adı</th>
-            <th scope="col" style="text-align: center">Yapıldı</th>
-            <th scope="col" style="text-align: center">İşlemler</th>
-          </tr>
+        <tr>
+          <th scope="col" style="text-align: center">Id</th>
+          <th scope="col" style="text-align: center">İş Adı</th>
+          <th scope="col" style="text-align: center">Yapıldı</th>
+          <th scope="col" style="text-align: center">İşlemler</th>
+        </tr>
         </thead>
         <tbody *ngFor="let item of getdoneItems(); index as i">
-          <th scope="row" style="text-align: center">{{ i + 1 }}</th>
-          <td style="text-align: center">{{ item.workname }}</td>
-          <td style="text-align: center">
-            <input
-              type="checkbox"
-              [(ngModel)]="item.done"
-              (click)="updateItem(item)"
-              id="works"
-            />
-          </td>
-          <td style="text-align: center">
-            <button
-              type="button"
-              class="btn btn-danger"
-              (click)="deleteItem(item)"
-            >
-              Sil
-            </button>
-            <app-modal-works
-              [context]="context"
-              [node]="item"
-            ></app-modal-works>
-            <app-modal-dates
-              [context]="context"
-              [nodeWork]="item"
-            ></app-modal-dates>
-          </td>
+        <th scope="row" style="text-align: center">{{ i + 1 }}</th>
+        <td style="text-align: center">{{ item.workname }}</td>
+        <td style="text-align: center">
+          <input
+            type="checkbox"
+            [(ngModel)]="item.done"
+            (click)="updateItem(item)"
+            id="works"
+          />
+        </td>
+        <td style="text-align: center">
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="deleteItem(item)"
+          >
+            Sil
+          </button>
+          <app-modal-works
+            [context]="context"
+            [node]="item"
+          ></app-modal-works>
+          <app-modal-dates
+            [context]="context"
+            [nodeWork]="item"
+          ></app-modal-dates>
+        </td>
         </tbody>
       </table>
     </div>
@@ -71,24 +71,24 @@
       <h2>Yapılan İşler</h2>
       <table class="table table-bordered">
         <thead>
-          <tr>
-            <th scope="col" style="text-align: center">Id</th>
-            <th scope="col" style="text-align: center">İş Adı</th>
-            <th scope="col" style="text-align: center">İşlemler</th>
-          </tr>
+        <tr>
+          <th scope="col" style="text-align: center">Id</th>
+          <th scope="col" style="text-align: center">İş Adı</th>
+          <th scope="col" style="text-align: center">İşlemler</th>
+        </tr>
         </thead>
         <tbody *ngFor="let item of getundoneItems(); index as i">
-          <th scope="row" style="text-align: center">{{ i + 1 }}</th>
-          <td style="text-align: center">{{ item.workname }}</td>
-          <td style="text-align: center">
-            <button
-              type="button"
-              class="btn btn-danger"
-              (click)="deleteItem(item)"
-            >
-              Sil
-            </button>
-          </td>
+        <th scope="row" style="text-align: center">{{ i + 1 }}</th>
+        <td style="text-align: center">{{ item.workname }}</td>
+        <td style="text-align: center">
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="deleteItem(item)"
+          >
+            Sil
+          </button>
+        </td>
         </tbody>
       </table>
     </div>
